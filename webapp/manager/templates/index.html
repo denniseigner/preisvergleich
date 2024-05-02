@@ -1,9 +1,13 @@
-{% if item_list %}
-    <ul>
-    {% for item in item_list %}
-        <li><a href="{% url 'manager:detail' item.id %}">{{ item.name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No items are available.</p>
-{% endif %}
+{% extends "base.html" %}
+
+{% block content %}
+    {% if item_list %}
+        <ul>
+        {% for item in item_list %}
+            <li><a href="{% url 'manager:detail' item.id %}">{{ item.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No items are available.</p>
+    {% endif %}
+{% endblock %}

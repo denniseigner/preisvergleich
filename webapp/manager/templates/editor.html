@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="m-4">
+<form action="{% url 'manager:create_new' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        {% if error_message %}
+        <article class="message">
+            <div class="message-header">
+                <p>Error</p>
+                <button class="delete" aria-label="delete"></button>
+            </div>
+            <div class="message-body">
+                {{ error_message }}
+            </div>
+        </article>
+        {% endif %}
+        <input class="input mb-2" type="text" placeholder="Item Name" id="item_name" name="item_name" />
+        <input class="input mb-2" type="text" placeholder="Size In Grams" id="size_grams" name="size_grams" />
+    </fieldset>
+    <input type="submit" value="Vote">
+</form>
+</div>
+{% endblock %}
