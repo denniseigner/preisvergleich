@@ -1,3 +1,6 @@
 from django.test import TestCase
 
-# Create your tests here.
+
+class CiTests(TestCase):
+    def test_for_ci(self):
+        self.assertIs(True, True)
