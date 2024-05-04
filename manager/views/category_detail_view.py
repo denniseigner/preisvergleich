@@ -12,4 +12,4 @@ def category_detail(
 
     context = {"category": category}
 
-    return render(request, "detail.html", context)
+    return render(request, "category/category_detail.html", context)
