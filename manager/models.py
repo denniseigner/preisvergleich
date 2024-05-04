@@ -1,40 +1,44 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class Item(models.Model):
+class ProductCategory(models.Model):
     """
-    The Item model.
+    The ProductCategory model.
 
     Attributes
     ----------
     name : CharField
-        The name of the item
-    size_grams : IntegerField
-        The size of the item in grams
+        The name of the ProductCategory
 
     """
 
-    name = models.CharField(max_length=50)
-    size_grams = models.IntegerField()
+    name = models.CharField(max_length=32)
 
     def __str__(self) -> str:
-        """Return a string representation of the item."""
+        """Return a string representation of the ProductCategory."""
         return self.name
 
 
-class Link(models.Model):
+class Product(models.Model):
     """
-    The Link model.
+    The Product model.
 
     Attributes
     ----------
+    product_category : ForeignKey
+        The associated ProductCategory
+    name : CharField
+        The name of the product
     shop : CharField
-        The name of the shop
-    item : ForeignKey
-        The link to the item
+        The shop the product can be found
     url : URLField
-        the url to the item
+        The url to the product
+    weight : IntegerField
+        The weight of the product
+    price : DecimalField
+        The price of the product
 
     """
 
@@ -44,13 +48,20 @@ class Link(models.Model):
         BILLA = "Billa", _("Billa")
         HOFER = "Hofer", _("Hofer")
 
-    shop = models.CharField(max_length=50, choices=Shops.choices, default=Shops.HOFER)
-    item = models.ForeignKey(
-        "Item",
+    product_category = models.ForeignKey(
+        "ProductCategory",
         on_delete=models.DO_NOTHING,
     )
+    name = models.CharField(max_length=32)
+    shop = models.CharField(max_length=32, choices=Shops.choices, default=Shops.HOFER)
     url = models.URLField()
+    weight = models.IntegerField(validators=[MinValueValidator(0)])
+    price = models.DecimalField(
+        max_digits=3,
+        decimal_places=2,
+        validators=[MinValueValidator(0)],
+    )
 
     def __str__(self) -> str:
-        """Return a string representation of the link."""
-        return self.shop
+        """Return a string representation of the product."""
+        return f"{self.name} {self.price}€/{self.weight}g"
