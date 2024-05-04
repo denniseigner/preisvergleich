@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% if item_list %}
-        <ul>
-        {% for item in item_list %}
-            <li><a href="{% url 'manager:detail' item.id %}">{{ item.name }}</a></li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No items are available.</p>
-    {% endif %}
+<div class="m-6">
+    <a href="{% url 'manager:product_category_editor' %}">Create New Product Category</a>
+
+    {% for product_category in product_category_list %}
+    <div class="box">{{ product_category }}</div>
+    {% endfor %}
+</div>
 {% endblock %}

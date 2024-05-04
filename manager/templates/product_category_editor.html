@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="m-6">
+  <form action="{% url 'manager:create_new_product_category' %}" method="post">
+    {% csrf_token %}
+
+    {% if error_message %}
+    <article class="message is-danger" id="error_box">
+      <div class="message-header">
+        <p>Error</p>
+        <button class="delete" aria-label="delete" hx-post="{% url 'manager:delete_error_message' %}"
+          hx-swap="outerHTML" hx-target="#error_box"></button>
+      </div>
+      <div class="message-body">
+        {{ error_message }}
+      </div>
+    </article>
+    {% endif %}
+
+    <div class="field">
+      <label class="label">
+        Product Category Name
+        <div class="control">
+          <input class="input" type="text" placeholder="Product Category Name" name="product_category_name"
+            value="{{ product_category_name }}">
+        </div>
+      </label>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-link">Submit</button>
+      </div>
+      <div class="control">
+        <button class="button is-link is-light">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
