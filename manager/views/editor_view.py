@@ -7,10 +7,12 @@ from django.views.decorators.http import require_POST, require_safe
 
 from manager.models import ProductCategory
 
+PRODUCT_CATEGORY_EDITOR_HTML = "product_category_editor.html"
+
 
 @require_safe
 def product_category_editor(request: HttpRequest) -> HttpResponse:
-    return render(request, "product_category_editor.html")
+    return render(request, PRODUCT_CATEGORY_EDITOR_HTML)
 
 
 @require_safe
@@ -26,7 +28,7 @@ def create_new_product_category(request: HttpRequest) -> HttpResponse:
         context = {
             "error_message": str(e),
         }
-        return render(request, "product_category_editor.html", context, status=400)
+        return render(request, PRODUCT_CATEGORY_EDITOR_HTML, context, status=400)
 
     product_category = ProductCategory(
         name=product_category_name,
@@ -39,7 +41,7 @@ def create_new_product_category(request: HttpRequest) -> HttpResponse:
             "error_message": str(e),
             "product_category_name": product_category_name,
         }
-        return render(request, "product_category_editor.html", context, status=400)
+        return render(request, PRODUCT_CATEGORY_EDITOR_HTML, context, status=400)
 
     product_category.save()
 
