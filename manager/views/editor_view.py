@@ -2,6 +2,7 @@ from django.forms import ValidationError
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.http import require_POST, require_safe
 
 from manager.models import ProductCategory
@@ -19,7 +20,13 @@ def delete_error_message(_: HttpRequest) -> HttpResponse:
 
 @require_POST
 def create_new_product_category(request: HttpRequest) -> HttpResponse:
-    product_category_name = request.POST["product_category_name"]
+    try:
+        product_category_name = request.POST["product_category_name"]
+    except MultiValueDictKeyError as e:
+        context = {
+            "error_message": str(e),
+        }
+        return render(request, "product_category_editor.html", context, status=400)
 
     product_category = ProductCategory(
         name=product_category_name,
@@ -32,7 +39,7 @@ def create_new_product_category(request: HttpRequest) -> HttpResponse:
             "error_message": str(e),
             "product_category_name": product_category_name,
         }
-        return render(request, "product_category_editor.html", context)
+        return render(request, "product_category_editor.html", context, status=400)
 
     product_category.save()
 
