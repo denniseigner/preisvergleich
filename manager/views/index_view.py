@@ -2,14 +2,14 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_safe
 
-from manager.models import ProductCategory
+from manager.models import Category
 
 
 @require_safe
 def index(request: HttpRequest) -> HttpResponse:
-    product_categories = ProductCategory.objects.all()
+    categories = Category.objects.all()
     context = {
-        "product_category_list": product_categories,
+        "category_list": categories,
     }
 
     return render(request, "index.html", context)

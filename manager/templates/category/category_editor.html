@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="m-6">
-  <form action="{% url 'manager:create_new_product_category' product_category_id %}" method="post">
+  <form action="{% url 'manager:create_new_category' %}" method="post">
     {% csrf_token %}
 
     {% if error_message %}
@@ -22,8 +22,8 @@
       <label class="label">
         Product Category Name
         <div class="control">
-          <input class="input" type="text" placeholder="Product Category Name" name="product_category_name"
-            value="{{ product_category_name }}">
+          <input class="input" type="text" placeholder="Product Category Name" name="category_name"
+            value="{{ category_name }}">
         </div>
       </label>
     </div>

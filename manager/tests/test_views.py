@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from manager.models import ProductCategory
+from manager.models import Category
 
 HTTP_OK = 200
 HTTP_FOUND = 302
@@ -17,7 +17,7 @@ class ManagerIndexViewTests(TestCase):
     test_index_view() -> None
         Test if index view returns 200
 
-    test_index_view_shows_product_categories() -> None
+    test_index_view_shows_categories() -> None
         Test if products categories are listed on index page
 
     """
@@ -27,16 +27,16 @@ class ManagerIndexViewTests(TestCase):
         response = self.client.get(reverse("manager:index"))
         assert response.status_code == HTTP_OK  # noqa: S101
 
-    def test_index_view_shows_product_categories(self) -> None:
+    def test_index_view_shows_categories(self) -> None:
         """Test if products categories are listed on index page."""
-        product_category_1 = ProductCategory.objects.create(name="product_category_1")
-        product_category_2 = ProductCategory.objects.create(name="product_category_2")
+        category_1 = Category.objects.create(name="category_1")
+        category_2 = Category.objects.create(name="category_2")
 
         response = self.client.get(reverse("manager:index"))
         assert response.status_code == HTTP_OK  # noqa: S101
         self.assertQuerySetEqual(
-            response.context["product_category_list"],
-            [product_category_1, product_category_2],
+            response.context["category_list"],
+            [category_1, category_2],
             ordered=False,
         )
 
@@ -47,77 +47,77 @@ class ManagerEditorViewTests(TestCase):
 
     Methods
     -------
-    test_create_product_category_view() -> None
+    test_create_category_view() -> None
         Test if product category editor returns 200
 
-    test_product_category_editor_delete_error_message() -> None
+    test_category_editor_delete_error_message() -> None
         Test if product category editor error message can be deleted
 
-    test_create_new_product_category() -> None
+    test_create_new_category() -> None
         Test if new product category can be created
 
-    test_create_new_product_category_empty() -> None
+    test_create_new_category_empty() -> None
         Test that empty request for product category fails
 
-    test_create_new_product_category_invalid_empty() -> None
+    test_create_new_category_invalid_empty() -> None
         Test that invalid empty request for product category fails
 
-    test_create_new_product_category_invalid_too_long() -> None
+    test_create_new_category_invalid_too_long() -> None
         Test that invalid too long request for product category fails
 
     """
 
-    def test_create_product_category_view(self) -> None:
+    def test_create_category_view(self) -> None:
         """Test if product category editor returns 200."""
-        response = self.client.get(reverse("manager:product_category_editor"))
+        response = self.client.get(reverse("manager:category_editor"))
         assert response.status_code == HTTP_OK  # noqa: S101
 
-    def test_product_category_editor_delete_error_message(self) -> None:
+    def test_category_editor_delete_error_message(self) -> None:
         """Test if product category editor error message can be deleted."""
-        response = self.client.get(reverse("manager:delete_error_message"))
+        response = self.client.post(reverse("manager:delete_error_message"))
         assert response.status_code == HTTP_OK  # noqa: S101
         assert response.content == b""  # noqa: S101
 
-    def test_create_new_product_category(self) -> None:
+    def test_create_new_category(self) -> None:
         """Test if new product category can be created."""
         context = {
-            "product_category_name": "my_name",
+            "category_name": "my_name",
         }
 
         response = self.client.post(
-            reverse("manager:create_new_product_category"),
+            reverse("manager:create_new_category"),
             context,
         )
 
         assert response.status_code == HTTP_FOUND  # noqa: S101
 
-    def test_create_new_product_category_empty(self) -> None:
+    def test_create_new_category_empty(self) -> None:
         """Test that empty request for product category fails."""
-        response = self.client.post(reverse("manager:create_new_product_category"))
+        response = self.client.post(reverse("manager:create_new_category"))
 
         assert response.status_code == HTTP_BAD_REQUEST  # noqa: S101
 
-    def test_create_new_product_category_invalid_empty(self) -> None:
+    def test_create_new_category_invalid_empty(self) -> None:
         """Test that invalid empty request for product category fails ."""
         context = {
-            "product_category_name": "",
+            "category_name": "",
         }
 
         response = self.client.post(
-            reverse("manager:create_new_product_category"),
+            reverse("manager:create_new_category"),
             context,
         )
 
         assert response.status_code == HTTP_BAD_REQUEST  # noqa: S101
 
-    def test_create_new_product_category_invalid_too_long(self) -> None:
+    def test_create_new_category_invalid_too_long(self) -> None:
         """Test that invalid too long request for product category fails."""
         context = {
-            "product_category_name": "asdffdsaasdffdsaasdffdsaasdffdsaasdf",
+            "category_name": "asdffdsaasdffdsaasdffdsaasdffdsaasdf",
         }
 
         response = self.client.post(
-            reverse("manager:create_new_product_category"),
+            reverse("manager:create_new_category"),
             context,
         )
 

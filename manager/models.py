@@ -2,21 +2,21 @@ from django.core.validators import MinValueValidator
 from django.db import models
 
 
-class ProductCategory(models.Model):
+class Category(models.Model):
     """
-    The ProductCategory model.
+    The Category model.
 
     Attributes
     ----------
     name : CharField
-        The name of the ProductCategory
+        The name of the Category
 
     """
 
     name = models.CharField(max_length=32)
 
     def __str__(self) -> str:
-        """Return a string representation of the ProductCategory."""
+        """Return a string representation of the Category."""
         return self.name
 
 
@@ -26,8 +26,8 @@ class Product(models.Model):
 
     Attributes
     ----------
-    product_category : ForeignKey
-        The associated ProductCategory
+    category : ForeignKey
+        The associated Category
     name : CharField
         The name of the product
     shop : CharField
@@ -47,8 +47,8 @@ class Product(models.Model):
         BILLA = "Billa"
         HOFER = "Hofer"
 
-    product_category = models.ForeignKey(
-        "ProductCategory",
+    category = models.ForeignKey(
+        "Category",
         on_delete=models.DO_NOTHING,
     )
     name = models.CharField(max_length=32)

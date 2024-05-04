@@ -2,11 +2,11 @@
 
 {% block content %}
 <div class="m-6">
-    <a href="{% url 'manager:product_category_editor' %}">Create New Product Category</a>
+    <a href="{% url 'manager:category_editor' %}">Create New Product Category</a>
 
-    {% for product_category in product_category_list %}
-    <a href="{% url 'manager:product_category_detail' forloop.counter %}">
-        <div class="box mb-2">{{ product_category }}</div>
+    {% for category in category_list %}
+    <a href="{% url 'manager:category_detail' forloop.counter %}">
+        <div class="box mb-2">{{ category }}</div>
     </a>
     {% endfor %}
 </div>

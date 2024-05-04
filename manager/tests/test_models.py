@@ -2,7 +2,7 @@ import pytest
 from django.forms import ValidationError
 from django.test import TestCase
 
-from manager.models import Product, ProductCategory
+from manager.models import Category, Product
 
 
 class ManagerProductCategoryTests(TestCase):
@@ -21,11 +21,11 @@ class ManagerProductCategoryTests(TestCase):
 
     def setUp(self) -> None:
         """Create a ProductCategory in DB."""
-        ProductCategory.objects.create(name="my_name")
+        Category.objects.create(name="my_name")
 
     def test_model_str(self) -> None:
         """Test if ProductCategory String representation is correct."""
-        test_instance = ProductCategory.objects.get(name="my_name")
+        test_instance = Category.objects.get(name="my_name")
         test_instance_str = str(test_instance)
         assert test_instance_str == "my_name"  # noqa: S101
 
@@ -52,9 +52,9 @@ class ManagerProductTests(TestCase):
 
     def setUp(self) -> None:
         """Create a ProductCategory and Product in DB."""
-        product_category = ProductCategory.objects.create(name="my_name")
+        category = Category.objects.create(name="my_name")
         Product.objects.create(
-            product_category=product_category,
+            category=category,
             name="my_name",
             shop=Product.Shops.BILLA,
             url="https://myurl.test",
@@ -70,10 +70,10 @@ class ManagerProductTests(TestCase):
 
     def test_invalid_weight(self) -> None:
         """Test if only positive weights can be added."""
-        product_category = ProductCategory.objects.get(name="my_name")
+        category = Category.objects.get(name="my_name")
 
         product = Product(
-            product_category=product_category,
+            category=category,
             name="my_name",
             shop=Product.Shops.BILLA,
             url="invalid_url",
@@ -85,10 +85,10 @@ class ManagerProductTests(TestCase):
 
     def test_invalid_price(self) -> None:
         """Test if only positive prices can be added."""
-        product_category = ProductCategory.objects.get(name="my_name")
+        category = Category.objects.get(name="my_name")
 
         product = Product(
-            product_category=product_category,
+            category=category,
             name="my_name",
             shop=Product.Shops.BILLA,
             url="invalid_url",
