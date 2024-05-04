@@ -22,7 +22,7 @@ jobs:
       - name: Run tox
         run: tox -e py
       - name: print stuff
-        run: ls -lha && cat coverage.xml
+        run: pwd && ls -lha && cat coverage.xml
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
