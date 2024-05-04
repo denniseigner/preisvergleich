@@ -1,6 +1,5 @@
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class ProductCategory(models.Model):
@@ -45,8 +44,8 @@ class Product(models.Model):
     class Shops(models.TextChoices):
         """Shop Choices Enum."""
 
-        BILLA = "Billa", _("Billa")
-        HOFER = "Hofer", _("Hofer")
+        BILLA = "Billa"
+        HOFER = "Hofer"
 
     product_category = models.ForeignKey(
         "ProductCategory",

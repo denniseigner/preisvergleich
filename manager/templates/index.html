@@ -5,7 +5,9 @@
     <a href="{% url 'manager:product_category_editor' %}">Create New Product Category</a>
 
     {% for product_category in product_category_list %}
-    <div class="box">{{ product_category }}</div>
+    <a href="{% url 'manager:product_category_detail' forloop.counter %}">
+        <div class="box mb-2">{{ product_category }}</div>
+    </a>
     {% endfor %}
 </div>
 {% endblock %}

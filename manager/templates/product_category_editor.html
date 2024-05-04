@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="m-6">
-  <form action="{% url 'manager:create_new_product_category' %}" method="post">
+  <form action="{% url 'manager:create_new_product_category' product_category_id %}" method="post">
     {% csrf_token %}
 
     {% if error_message %}

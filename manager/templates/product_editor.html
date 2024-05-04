@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="m-6">
+  <form action="{% url 'manager:create_new_product' product_category_id %}" method="post">
+    {% csrf_token %}
+
+    {% if error_message %}
+    <article class="message is-danger" id="error_box">
+      <div class="message-header">
+        <p>Error</p>
+        <button class="delete" aria-label="delete" hx-post="{% url 'manager:delete_error_message' %}"
+          hx-swap="outerHTML" hx-target="#error_box"></button>
+      </div>
+      <div class="message-body">
+        {{ error_message }}
+      </div>
+    </article>
+    {% endif %}
+
+    <div class="field">
+      <label class="label">Product Name</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Product Name" name="name">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Shop</label>
+      <div class="control">
+        <div class="select">
+          <select name="shop">
+            {% for shop_choice in shop_choices %}
+            <option>{{ shop_choice }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">URL</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="URL" name="url">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Weight</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Weight" name="weight">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Price</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Price" name="price">
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-link">Submit</button>
+      </div>
+      <div class="control">
+        <button class="button is-link is-light">Cancel</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+{% endblock %}

@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from manager.models import ProductCategory
+
 HTTP_OK = 200
 HTTP_FOUND = 302
 HTTP_BAD_REQUEST = 400
@@ -15,12 +17,28 @@ class ManagerIndexViewTests(TestCase):
     test_index_view() -> None
         Test if index view returns 200
 
+    test_index_view_shows_product_categories() -> None
+        Test if products categories are listed on index page
+
     """
 
     def test_index_view(self) -> None:
         """Test if index view returns 200."""
         response = self.client.get(reverse("manager:index"))
         assert response.status_code == HTTP_OK  # noqa: S101
+
+    def test_index_view_shows_product_categories(self) -> None:
+        """Test if products categories are listed on index page."""
+        product_category_1 = ProductCategory.objects.create(name="product_category_1")
+        product_category_2 = ProductCategory.objects.create(name="product_category_2")
+
+        response = self.client.get(reverse("manager:index"))
+        assert response.status_code == HTTP_OK  # noqa: S101
+        self.assertQuerySetEqual(
+            response.context["product_category_list"],
+            [product_category_1, product_category_2],
+            ordered=False,
+        )
 
 
 class ManagerEditorViewTests(TestCase):
