@@ -2,26 +2,28 @@
 
 {% block content %}
 <div class="m-6">
-  <form action="asdf" method="post">
+  <form action="{% url 'manager:create_new_product' %}" method="post">
     {% csrf_token %}
 
-    {% if error_message %}
-    <article class="message is-danger" id="error_box">
-      <div class="message-header">
-        <p>Error</p>
-        <button class="delete" aria-label="delete" hx-post="{% url 'manager:delete_error_message' %}"
-          hx-swap="outerHTML" hx-target="#error_box"></button>
-      </div>
-      <div class="message-body">
-        {{ error_message }}
-      </div>
-    </article>
+    {% if messages %}
+    {% for message in messages %}
+      <article class="message is-danger" id="error_box_{{ forloop.counter }}">
+        <div class="message-header">
+          <p>Error</p>
+          <button class="delete" aria-label="delete" hx-post="{% url 'manager:delete_error_message' %}"
+            hx-swap="outerHTML" hx-target="#error_box_{{ forloop.counter }}"></button>
+        </div>
+        <div class="message-body">
+          {{ message }}
+        </div>
+      </article>
+    {% endfor %}
     {% endif %}
 
     <div class="field">
       <label class="label">Product Name</label>
       <div class="control">
-        <input class="input" type="text" placeholder="Product Name" name="name">
+        <input class="input" type="text" placeholder="Product Name" name="product_name">
       </div>
     </div>
 
