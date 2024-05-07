@@ -1,9 +1,8 @@
 from django.contrib import messages
 from django.forms import ValidationError
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 from django.urls import reverse
-from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.http import require_POST, require_safe
 
 from preisvergleich.models import Category
@@ -19,12 +18,14 @@ def category_editor(request: HttpRequest) -> HttpResponse:
 
 @require_POST
 def create_new_category(request: HttpRequest) -> HttpResponse:
-    try:
-        category_name = request.POST["category_name"]
-        request.session["category_name"] = category_name
-    except MultiValueDictKeyError as e:
-        messages.error(str(e))
-        return redirect("preisvergleich:category_editor")
+
+    category_name = request.POST.get("category_name", "")
+    request.session["category_name"] = category_name
+
+    if not category_name:
+        messages.error(request, "Category name is required.")
+        context = {"category_name": category_name}
+        return render(request, "category/category_editor.html", context=context)
 
     category = Category(
         name=category_name,
@@ -33,10 +34,10 @@ def create_new_category(request: HttpRequest) -> HttpResponse:
     try:
         category.full_clean()
     except ValidationError as e:
-        messages.error(str(e))
-        return redirect("preisvergleich:category_editor")
+        messages.error(request, e.messages)
+        context = {"category_name": category_name}
+        return render(request, "category/category_editor.html", context=context)
 
     category.save()
     request.session.clear()
-
     return HttpResponseRedirect(reverse("preisvergleich:index"))
