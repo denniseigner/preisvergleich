@@ -21,44 +21,54 @@
     {% endif %}
 
     <div class="field">
-      <label class="label">Product Name</label>
-      <div class="control">
-        <input class="input" type="text" placeholder="Product Name" name="product_name" value="{{ product_name }}">
-      </div>
-    </div>
-
-    <div class="field">
-      <label class="label">Shop</label>
-      <div class="control">
-        <div class="select">
-          <select name="shop">
-            {% for shop_choice in shop_choices %}
-            <option {% if shop_choice==shop %}selected{% endif %}>{{ shop_choice }}</option>
-            {% endfor %}
-          </select>
+      <label class="label">
+        Product Name
+        <div class="control">
+          <input class="input" type="text" placeholder="Product Name" name="product_name" value="{{ product_name }}">
         </div>
-      </div>
+      </label>
     </div>
 
     <div class="field">
-      <label class="label">URL</label>
-      <div class="control">
-        <input class="input" type="text" placeholder="URL" name="url" value="{{ url }}">
-      </div>
+      <label class="label">
+        Shop
+        <div class="control">
+          <div class="select">
+            <select name="shop">
+              {% for shop_choice in shop_choices %}
+              <option {% if shop_choice==shop %}selected{% endif %}>{{ shop_choice }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </label>
     </div>
 
     <div class="field">
-      <label class="label">Weight</label>
-      <div class="control">
-        <input class="input" type="text" placeholder="Weight" name="weight" value="{{ weight }}">
-      </div>
+      <label class="label">
+        URL
+        <div class="control">
+          <input class="input" type="text" placeholder="URL" name="url" value="{{ url }}">
+        </div>
+      </label>
     </div>
 
     <div class="field">
-      <label class="label">Price</label>
-      <div class="control">
-        <input class="input" type="text" placeholder="Price" name="price" value="{{ price }}">
-      </div>
+      <label class="label">
+        Weight
+        <div class="control">
+          <input class="input" type="text" placeholder="Weight" name="weight" value="{{ weight }}">
+        </div>
+      </label>
+    </div>
+
+    <div class="field">
+      <label class="label">
+        Price
+        <div class="control">
+          <input class="input" type="text" placeholder="Price" name="price" value="{{ price }}">
+        </div>
+      </label>
     </div>
 
     <div class="field is-grouped">
