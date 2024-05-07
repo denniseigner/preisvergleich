@@ -3,6 +3,6 @@
 {% block content %}
 <div class="m-6">
     <h1 class="title mb-4">{{ category }}</h1>
-    <a href="{% url 'preisvergleich:product_editor' %}">Create New Product</a>
+    <a href="{% url 'preisvergleich:product_editor' category.id %}">Create New Product</a>
 </div>
 {% endblock %}

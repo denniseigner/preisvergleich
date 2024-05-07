@@ -25,7 +25,7 @@ urlpatterns = [
     path("category_detail/<int:category_id>", category_detail_view.category_detail, name="category_detail"),
 
     # Product editor views
-    path("product_editor/", product_editor_view.product_editor, name="product_editor"),
-    path("product_editor/new", product_editor_view.create_new_product, name="create_new_product"),
+    path("product_editor/<int:category_id>", product_editor_view.product_editor, name="product_editor"),
+    path("product_editor/<int:category_id>/new", product_editor_view.create_new_product, name="create_new_product"),
 ]
 # fmt: on
