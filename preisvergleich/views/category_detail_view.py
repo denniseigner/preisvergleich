@@ -1,7 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, render
 
-from manager.models import Category
+from preisvergleich.models import Category
 
 
 def category_detail(

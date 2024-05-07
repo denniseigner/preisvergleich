@@ -7,7 +7,7 @@ from .views import (
     product_editor_view,
 )
 
-app_name = "manager"
+app_name = "preisvergleich"
 
 # fmt: off
 urlpatterns = [

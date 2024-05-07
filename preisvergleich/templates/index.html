@@ -2,10 +2,10 @@
 
 {% block content %}
 <div class="m-6">
-    <a href="{% url 'manager:category_editor' %}">Create New Product Category</a>
+    <a href="{% url 'preisvergleich:category_editor' %}">Create New Product Category</a>
 
     {% for category in category_list %}
-    <a href="{% url 'manager:category_detail' forloop.counter %}">
+    <a href="{% url 'preisvergleich:category_detail' forloop.counter %}">
         <div class="box mb-2">{{ category }}</div>
     </a>
     {% endfor %}

@@ -2,7 +2,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_safe
 
-from manager.models import Category
+from preisvergleich.models import Category
 
 
 @require_safe

@@ -1,14 +1,14 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from manager.models import Category
+from preisvergleich.models import Category
 
 HTTP_OK = 200
 HTTP_FOUND = 302
 HTTP_BAD_REQUEST = 400
 
 
-class ManagerIndexViewTests(TestCase):
+class PreisvergleichIndexViewTests(TestCase):
     """
     IndexView Tests.
 
@@ -24,7 +24,7 @@ class ManagerIndexViewTests(TestCase):
 
     def test_index_view(self) -> None:
         """Test if index view returns 200."""
-        response = self.client.get(reverse("manager:index"))
+        response = self.client.get(reverse("preisvergleich:index"))
         assert response.status_code == HTTP_OK  # noqa: S101
 
     def test_index_view_shows_categories(self) -> None:
@@ -32,7 +32,7 @@ class ManagerIndexViewTests(TestCase):
         category_1 = Category.objects.create(name="category_1")
         category_2 = Category.objects.create(name="category_2")
 
-        response = self.client.get(reverse("manager:index"))
+        response = self.client.get(reverse("preisvergleich:index"))
         assert response.status_code == HTTP_OK  # noqa: S101
         self.assertQuerySetEqual(
             response.context["category_list"],
@@ -41,7 +41,7 @@ class ManagerIndexViewTests(TestCase):
         )
 
 
-class ManagerEditorViewTests(TestCase):
+class PreisvergleichEditorViewTests(TestCase):
     """
     IndexView Tests.
 
@@ -69,12 +69,12 @@ class ManagerEditorViewTests(TestCase):
 
     def test_create_category_view(self) -> None:
         """Test if product category editor returns 200."""
-        response = self.client.get(reverse("manager:category_editor"))
+        response = self.client.get(reverse("preisvergleich:category_editor"))
         assert response.status_code == HTTP_OK  # noqa: S101
 
     def test_category_editor_delete_error_message(self) -> None:
         """Test if product category editor error message can be deleted."""
-        response = self.client.post(reverse("manager:delete_error_message"))
+        response = self.client.post(reverse("preisvergleich:delete_error_message"))
         assert response.status_code == HTTP_OK  # noqa: S101
         assert response.content == b""  # noqa: S101
 
@@ -85,7 +85,7 @@ class ManagerEditorViewTests(TestCase):
         }
 
         response = self.client.post(
-            reverse("manager:create_new_category"),
+            reverse("preisvergleich:create_new_category"),
             context,
         )
 
@@ -93,7 +93,7 @@ class ManagerEditorViewTests(TestCase):
 
     def test_create_new_category_empty(self) -> None:
         """Test that empty request for product category fails."""
-        response = self.client.post(reverse("manager:create_new_category"))
+        response = self.client.post(reverse("preisvergleich:create_new_category"))
 
         assert response.status_code == HTTP_BAD_REQUEST  # noqa: S101
 
@@ -104,7 +104,7 @@ class ManagerEditorViewTests(TestCase):
         }
 
         response = self.client.post(
-            reverse("manager:create_new_category"),
+            reverse("preisvergleich:create_new_category"),
             context,
         )
 
@@ -117,7 +117,7 @@ class ManagerEditorViewTests(TestCase):
         }
 
         response = self.client.post(
-            reverse("manager:create_new_category"),
+            reverse("preisvergleich:create_new_category"),
             context,
         )
 

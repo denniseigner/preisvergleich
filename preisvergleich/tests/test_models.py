@@ -2,10 +2,10 @@ import pytest
 from django.forms import ValidationError
 from django.test import TestCase
 
-from manager.models import Category, Product
+from preisvergleich.models import Category, Product
 
 
-class ManagerProductCategoryTests(TestCase):
+class PreisvergleichProductCategoryTests(TestCase):
     """
     ProductCategory Model Tests.
 
@@ -30,7 +30,7 @@ class ManagerProductCategoryTests(TestCase):
         assert test_instance_str == "my_name"  # noqa: S101
 
 
-class ManagerProductTests(TestCase):
+class PreisvergleichProductTests(TestCase):
     """
     Product Model Tests.
 
