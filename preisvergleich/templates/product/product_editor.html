@@ -33,7 +33,7 @@
         <div class="select">
           <select name="shop">
             {% for shop_choice in shop_choices %}
-            <option {% if shop_choice == shop %}selected{% endif %}>{{ shop_choice }}</option>
+            <option {% if shop_choice==shop %}selected{% endif %}>{{ shop_choice }}</option>
             {% endfor %}
           </select>
         </div>

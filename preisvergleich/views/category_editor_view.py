@@ -1,11 +1,11 @@
+from django.contrib import messages
 from django.forms import ValidationError
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.http import require_POST, require_safe
-from django.contrib import messages
-from django.shortcuts import render, redirect
+
 from preisvergleich.models import Category
 
 

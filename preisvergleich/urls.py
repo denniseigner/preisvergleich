@@ -1,9 +1,10 @@
 from django.urls import path
+
 from .views import (
-    index_view,
+    category_detail_view,
     category_editor_view,
     helper_views,
-    category_detail_view,
+    index_view,
     product_editor_view,
 )
 
